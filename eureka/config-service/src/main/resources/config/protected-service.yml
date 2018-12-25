@@ -1,0 +1,13 @@
+server:
+  port: 8003
+  #servlet:
+    #context-path: /protected-service
+
+external:
+  property: hello universe
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh

@@ -1,0 +1,10 @@
+server:
+  port: 8002
+
+zuul:
+  routes:
+    protected-service:
+      path: /api/protected-service/** 
+      serviceId: protected-service
+      strip-prefix: true
+    
