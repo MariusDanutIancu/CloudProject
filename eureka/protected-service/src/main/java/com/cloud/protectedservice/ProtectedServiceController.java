@@ -16,4 +16,11 @@ public class ProtectedServiceController {
     public ResponseEntity<String> hello() {
         return ResponseEntity.ok(property);
     }
+    
+    @GetMapping("/data")
+    public ResponseEntity<ProtectedModel> data() {
+    	ProtectedModel data = new ProtectedModel();
+    	data.setData("data");
+        return ResponseEntity.ok(data);
+    }
 }
