@@ -1,3 +1,10 @@
+#server:
+#  ssl:
+#    enabled: true
+#    key-store: classpath:client.jks
+#    key-store-password: kronos
+#    key-alias: client
+    
 spring:
   application:
     name: gateway-service

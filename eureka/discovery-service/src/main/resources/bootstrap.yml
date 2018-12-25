@@ -1,6 +1,14 @@
 server:
   port: 8001
-  
+  #ssl:
+   #enabled: true
+    #key-store: classpath:eureka.jks
+    #key-store-password: kronos
+    #trust-store: classpath:eureka.jks
+    #trust-store-password: kronos
+    #key-alias: eureka
+    #client-auth: need
+    
 spring:
   application:
     name: discovery-service

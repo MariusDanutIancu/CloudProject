@@ -1,6 +1,11 @@
 server:
   port: 8000
-  
+  #ssl:
+    #enabled: true
+    #key-store: classpath:client.jks
+    #key-store-password: kronos
+    #key-alias: client
+
 spring:
   application:
     name: config-service
