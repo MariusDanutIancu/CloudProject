@@ -1,13 +1,6 @@
-#server:
-  #ssl:
-    #enabled: true
-    #key-store: classpath:client.jks
-    #key-store-password: kronos
-    #key-alias: client
-    
 spring:
   application:
-    name: gateway-service
+    name: admin-service
   cloud:
     config:
       discovery:
@@ -18,9 +11,8 @@ spring:
         #initial-interval: 1000
         #multiplier: 3
         #max-attempts: 3
-
+        
 eureka:
   client:
     serviceUrl:
       defaultZone: ${EUREKA_URI:http://localhost:8000/eureka}
-      

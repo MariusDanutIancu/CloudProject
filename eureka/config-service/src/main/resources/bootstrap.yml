@@ -1,11 +1,22 @@
 server:
-  port: 8000
+  port: 8001
   #ssl:
     #enabled: true
     #key-store: classpath:client.jks
     #key-store-password: kronos
     #key-alias: client
 
+management:
+  server:
+    port: 9001
+    servlet:
+      context-path: /api/management
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: "*"
+        
 spring:
   application:
     name: config-service
@@ -15,4 +26,6 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:8001/eureka}
+      defaultZone: ${EUREKA_URI:http://localhost:8000/eureka}
+  instance:
+    homePageUrl: http://localhost:8000

@@ -1,14 +1,25 @@
 server:
-  port: 8001
+  port: 8000
   #ssl:
    #enabled: true
-    #key-store: classpath:eureka.jks
+    #key-store: eureka.jks
     #key-store-password: kronos
-    #trust-store: classpath:eureka.jks
+    #trust-store: eureka.jks
     #trust-store-password: kronos
     #key-alias: eureka
     #client-auth: need
-    
+
+management:
+  server:
+    port: 9000
+    servlet:
+      context-path: /api/management
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: "*"
+  
 spring:
   application:
     name: discovery-service
@@ -17,3 +28,5 @@ eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
+  instance:
+    homePageUrl: http://localhost:8000

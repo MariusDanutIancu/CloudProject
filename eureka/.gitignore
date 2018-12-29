@@ -1,2 +1,5 @@
 .metadata/*
 Servers/*
+auth-service/*
+account-service/*
+/.metadata/

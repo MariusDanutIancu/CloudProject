@@ -1,13 +1,23 @@
 server:
-  port: 8003
+  port: 8004
   #servlet:
     #context-path: /protected-service
-
+         
 external:
   property: hello universe
 
 management:
+  server:
+    port: 9004
+    servlet:
+      context-path: /api/management
   endpoints:
     web:
+      base-path: /actuator
       exposure:
-        include: refresh
+        include: "*"
+        
+eureka:
+  instance:
+    homePageUrl: http://localhost:8000        
+       

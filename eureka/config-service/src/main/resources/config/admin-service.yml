@@ -1,0 +1,32 @@
+server:
+  port: 8003
+
+spring:
+  application:
+    name: admin-service
+  boot:
+    admin:
+      context-path: /api/management
+      discovery:
+        #ignored-services: admin-service
+        enabled: true
+        converter:
+          management-context-path: /api/management/actuator
+      monitor:
+        default-retries: 3
+        
+management:
+  server:
+    port: 9003
+    servlet:
+      context-path: /api/management
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: "*"
+
+eureka:
+  instance:
+    homePageUrl: http://localhost:8003/api/management
+    
