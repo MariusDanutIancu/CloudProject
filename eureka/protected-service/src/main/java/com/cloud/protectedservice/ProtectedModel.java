@@ -1,6 +1,7 @@
 package com.cloud.protectedservice;
 
 public class ProtectedModel {
+	
 	String data;
 
 	public String getData() {
