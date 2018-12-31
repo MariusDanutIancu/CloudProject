@@ -1,5 +1,5 @@
 .metadata/*
+.vscode/*
 Servers/*
 auth-service/*
 account-service/*
-/.metadata/
