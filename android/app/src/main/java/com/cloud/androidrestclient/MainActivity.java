@@ -7,6 +7,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import retrofit2.Call;
@@ -17,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
 
     TextView responseText;
     ProtectedApi apiInterface;
-    private static String RETROFITTAG="RETROFITTAG";
 
     // Storage Permissions
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -26,45 +27,76 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
+    // Logging
+    private static String RETROFITTAG = "RETROFITTAG";
+    private static String testConnectionTemplateValidResponseTempate = "Received message: %s";
+    private static String testConnectionTemplateInvalidResponseTempate = "Test connection failled: %s";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.v(RETROFITTAG, "RUNNING" );
+        Log.v(RETROFITTAG, "MainActivity - OnCreate" );
 
-        //verifyStoragePermissions(this);
+        Log.v(RETROFITTAG, "MainActivity - Testing connection" );
+        final Button button = findViewById(R.id.testConnection_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                retrofit2EurekaTestConnection();
+            }
+        });
+    }
 
-        responseText = (TextView) findViewById(R.id.responseText);
+    /**
+     * Test eureka connection
+     *
+     */
+    private void retrofit2EurekaTestConnection()
+    {
+        responseText = findViewById(R.id.responseText);
+        responseText.setText("MainActivity - Testing...");
+
         apiInterface = ProtectedApiClient.getClient().create(ProtectedApi.class);
+        if(apiInterface == null)
+        {
+            String logMessage = String.format(testConnectionTemplateInvalidResponseTempate, "Connection not available");
+            Log.v(RETROFITTAG, logMessage);
+            responseText.setText(logMessage);
+        }
+
         Call<ProtectedModel> call  = apiInterface.requestData();
         call.enqueue(new Callback<ProtectedModel>()
         {
             @Override
-            public void onResponse(Call<ProtectedModel> call, Response<ProtectedModel> response) {
-
+            public void onResponse(Call<ProtectedModel> call, Response<ProtectedModel> response)
+            {
                 ProtectedModel result = response.body();
-                Log.v(RETROFITTAG, result.getData());
+                Log.v(RETROFITTAG, String.format(testConnectionTemplateValidResponseTempate, result.getData()));
                 responseText.setText(result.getData());
-
             }
 
             @Override
             public void onFailure(Call<ProtectedModel> call, Throwable t) {
-                Log.v(RETROFITTAG, "CANCEL");
-                Log.v(RETROFITTAG, t.getMessage());
+
+                String logMessage = String.format(testConnectionTemplateInvalidResponseTempate, t.getCause());
+                Log.e(RETROFITTAG, logMessage);
+                responseText.setText(logMessage);
                 call.cancel();
             }
         });
-
     }
 
-    public static void verifyStoragePermissions(Activity activity) {
+    /**
+     * Verify storage permisions
+     * Currently not needed
+     *
+     * @param activity
+     */
+    private static void verifyStoragePermissions(Activity activity) {
         // Check if we have write permission
         int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-        Log.v(RETROFITTAG, "Checking permissions");
-
+        Log.v(RETROFITTAG, "Main Activity - Checking permissions");
         if (permission != PackageManager.PERMISSION_GRANTED) {
             // We don't have permission so prompt the user
             ActivityCompat.requestPermissions(

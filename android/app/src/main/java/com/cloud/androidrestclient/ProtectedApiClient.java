@@ -8,29 +8,38 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProtectedApiClient {
 
-    private static Retrofit retrofit = null;
+    private static String connection = "http://192.168.2.104:8002";
+    private static String connection_2 = "http://192.168.17.47:8002";
+
+    // Logging
     private static String RETROFITTAG="RETROFITTAG";
+    private static String retrofitClientLoggingMessageTemplate = "Building client for: %s";
 
     static Retrofit getClient() {
 
-        OkHttpClient client = new OkHttpClient.Builder().build();
+        Retrofit retrofit;
 
-        Log.v(RETROFITTAG, "BUILDING client on http://192.168.2.104:8002" );
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.2.104:8002")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
-                .build();
+        Log.v(RETROFITTAG, String.format(retrofitClientLoggingMessageTemplate, connection));
+        retrofit =  buildClient(connection);
 
         if (retrofit == null)
         {
-            Log.v(RETROFITTAG, "Client is null");
-        }
-        else {
-            Log.v(RETROFITTAG, "Client BUILT");
+            Log.v(RETROFITTAG, String.format(retrofitClientLoggingMessageTemplate, connection));
+            retrofit =  buildClient(connection_2);
         }
 
         return retrofit;
     }
 
+    static private Retrofit buildClient(String connection)
+    {
+        Retrofit retrofit;
+        OkHttpClient client = new OkHttpClient.Builder().build();
+        retrofit = new Retrofit.Builder()
+                .baseUrl(connection)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+        return retrofit;
+    }
 }
