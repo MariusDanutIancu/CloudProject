@@ -1,4 +1,4 @@
-package com.cloud.protectedservice;
+package com.cloud.protectedservice.model;
 
 public class ImageModel 
 {
