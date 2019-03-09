@@ -5,6 +5,7 @@ server:
          
 external:
   property: hello universe
+  version: 1.0.0
 
 management:
   server:
