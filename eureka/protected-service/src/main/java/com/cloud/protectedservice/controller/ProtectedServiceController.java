@@ -90,9 +90,13 @@ public class ProtectedServiceController {
     {
     	try 
     	{   	
-    		File savedImage = File.createTempFile("image", ".dcm", file);
-    		new FileOutputStream(savedImage.getAbsolutePath()).write(imageByte);
-    		logger.info("Request /uploadimage: " + savedImage.getAbsolutePath());
+			File savedImage = File.createTempFile("image", ".dcm", file);
+			
+			FileOutputStream fileOutputSteam = new FileOutputStream(savedImage.getAbsolutePath());
+			fileOutputSteam.write(imageByte);
+			fileOutputSteam.close();
+			
+			logger.info("Request /uploadimage: " + savedImage.getAbsolutePath());
     		return true;
 		} 
     	catch (FileNotFoundException e) 
