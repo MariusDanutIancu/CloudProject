@@ -22,10 +22,8 @@ import springfox.documentation.service.Contact;
 import springfox.documentation.service.VendorExtension;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableDiscoveryClient
-@EnableSwagger2
 @SpringBootApplication
 public class ProtectedServiceApplication {
 
